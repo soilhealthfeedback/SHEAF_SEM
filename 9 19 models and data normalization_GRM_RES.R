@@ -223,3 +223,16 @@ semPlot::semPaths(fitmodel63, "std",   bifactor = "g",  fade = FALSE, style = "l
 summary(fitmodel63, fit.measures = TRUE)
 
 head(soilscaled)
+
+
+#CFA with soi health latent factor
+#Soil Health with SOM AHT and Erv
+model64<-'Soil_Health =~ SOILS_SOM + SOILS_AHT + SOILS_Erv + SOILS_AW + SOILS_Db + SOILS_pH'
+fitmodel64<-cfa(model64, data=soilscaled)
+summary(fitmodel64,fit.measures=T)
+
+soil_health_scaled <-soilscaled[c("SOILS_SOM", "SOILS_AHT", "SOILS_Erv", "SOILS_AW",  "SOILS_Db", "SOILS_pH")]
+soil_health_scaledcor <-cor(soil_health_scaled, use="complete.obs")
+soil_health_scaledcor
+
+
