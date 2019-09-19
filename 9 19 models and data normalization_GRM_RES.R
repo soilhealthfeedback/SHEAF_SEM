@@ -1,8 +1,8 @@
 library(e1071)
 library(forecast)
 #fit model with scaled data
-soilscaled<-read.csv("https://files.sesync.org/index.php/s/Y8mwK98kkajNafs/download", header=T)
-soilnonscaled<-read.csv("https://files.sesync.org/index.php/s/L2iX5GC85JbYGwZ/download", header=T)
+soilscaled<-read.csv("https://files.sesync.org/index.php/s/DpG5Kr3oo35ZAZD/download", header=T)
+soilnonscaled<-read.csv("https://files.sesync.org/index.php/s/95T64P2g27E2a5a/download", header=T)
 #reduce skew in dependent variables
 #cover crops
 skewness(soilnonscaled$AGCENSUS_Cover_Acres_Ratio, na.rm=T)
@@ -87,6 +87,16 @@ RMA_revised_total_indem_2012 ~~ RMA_revised_loss_cost
 '
 fitmodel50<-sem(model50, data=soilscaled)
 summary(fitmodel50,fit.measures=T,standardized=T)
+
+#CFA with each latent factor
+#soils 
+#model51<-'Water_Stress=~PDSI_TOTALS + RMA_revised_loss_cost_hot_dry'
+#fitmodel51<-cfa(model51, data=soilscaled)
+#summary(fitmodel51,fit.measures=T)
+
+#soils1scaled<-soilscaled[c("SOILS_AW","SOILS_SOM")]
+#soils1scaledcor<-cor(soils1scaled, use="complete.obs")
+#soils1scaledcor
 
 #CFA with each latent factor
 #Water Stress with loss
