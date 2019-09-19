@@ -1,6 +1,7 @@
 library(e1071)
 library(forecast)
 #fit model with scaled data
+
 soilscaled<-read.csv("https://files.sesync.org/index.php/s/Y8mwK98kkajNafs/download", header=T)
 soilnonscaled<-read.csv("https://files.sesync.org/index.php/s/L2iX5GC85JbYGwZ/download", header=T)
 #reduce skew in dependent variables
