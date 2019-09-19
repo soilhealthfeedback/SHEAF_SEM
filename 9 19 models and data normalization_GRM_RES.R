@@ -94,7 +94,7 @@ summary(fitmodel50,fit.measures=T,standardized=T)
 #fitmodel51<-cfa(model51, data=soilscaled)
 #summary(fitmodel51,fit.measures=T)
 
-#soils1scaled<-soilscaled[c("SOILS_AW","SOILS_SOM")]
+#soils1scaled<-soilscaled[c("SOILS_Erv","SOILS_SOM")]
 #soils1scaledcor<-cor(soils1scaled, use="complete.obs")
 #soils1scaledcor
 
