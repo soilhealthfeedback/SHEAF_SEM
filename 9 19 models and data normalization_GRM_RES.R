@@ -181,16 +181,27 @@ summary(fitmodel60,fit.measures=T)
 ##Updated input costs, equipment costs and land costs - latent construct not great##
 
 #newer model - RES and GRM
-model62<-'
+model63<-'
 #latent variables
-Input_Costs=~FARMCOSTS_Chemicals_1000Doll_2012 + FARMCOSTS_Fert_lime_soilcond_purchased_1000dolls_2012 + FARMCOSTS_FeedExpenses_1000Dolls_2012 + FARMCOSTS_Property_taxes_paid_1000Dolls_2012
-Land_Costs=~RENT_average + FARMCOSTS_cashrent_land_building_pasture_1000Doll_2012 + FARMCOSTS_Interest_Expenses_1000Dolls_2012
-Equipment_Services=~FARMCOSTS_gas_fuel_oil_purchased_1000Dolls_2012 + FARMCOSTS_Utilities_expenses_1000Dolls_2012 + FARMCOSTS_Depreciation_expenses_1000Doll_2012 + FARMCOSTS_rent_lease_machinery_equipment_Expense_1000Dolls_2012 + FARMCOSTS_hired_labor_expenses_1000Dolls_2012 + FARMCOSTS_Customwork_hauling_expenses_1000Doll_2012 + FARMCOSTS_ContractLaborExpense_1000Doll_2012
+Input_Costs =~ FARMCOSTS_Chemicals_1000Doll_2012 + FARMCOSTS_Fert_lime_soilcond_purchased_1000dolls_2012 + FARMCOSTS_FeedExpenses_1000Dolls_2012 + FARMCOSTS_Property_taxes_paid_1000Dolls_2012
+Land_Costs =~ RENT_average + FARMCOSTS_cashrent_land_building_pasture_1000Doll_2012 + FARMCOSTS_Interest_Expenses_1000Dolls_2012
+Equipment_Services =~ FARMCOSTS_gas_fuel_oil_purchased_1000Dolls_2012 + FARMCOSTS_Utilities_expenses_1000Dolls_2012 + FARMCOSTS_Depreciation_expenses_1000Doll_2012 + FARMCOSTS_rent_lease_machinery_equipment_Expense_1000Dolls_2012 + FARMCOSTS_hired_labor_expenses_1000Dolls_2012 + FARMCOSTS_Customwork_hauling_expenses_1000Doll_2012 + FARMCOSTS_ContractLaborExpense_1000Doll_2012
 
 #regressions
 CDI_2012 ~ RMA_revised_total_indem_2012
 
-AGCENSUS_Cover_Acres_Ratio_transformed~CDI_2012 + RMA_revised_total_indem_2012 + PDSI_TOTALS + RMA_revised_loss_cost_hot_dry + PRECIP_max + RMA_revised_loss_cost_wet + HDI_Health.Index + HDI_Income.Index + HDI_Education.Index +
+AGCENSUS_Cover_Acres_Ratio_transformed ~ CDI_2012 + 
+                                          SOILS_SOM + 
+                                          SOILS_AHT + 
+                                          SOILS_Erv + 
+                                          RMA_revised_total_indem_2012 + 
+                                          PDSI_TOTALS + 
+                                          RMA_revised_loss_cost_hot_dry + 
+                                          PRECIP_max + 
+                                          RMA_revised_loss_cost_wet + 
+                                          HDI_Health.Index + 
+                                          HDI_Income.Index + 
+                                          HDI_Education.Index +
 RACE_Entropy + FEMALE_percent_female
 
 #covariance
@@ -205,11 +216,10 @@ Input_Costs ~~ Land_Costs
 Input_Costs ~~ Equipment_Services
 Land_Costs ~~ Equipment_Services'
 
-fitmodel62<-sem(model62,data=soilscaled)
-summary(fitmodel62, fit.measures=T, standardized=T)
+fitmodel63<-sem(model63,data=soilscaled, missing = "ML")
+summary(fitmodel63, fit.measures=T, standardized=T)
 
-semPlot::semPaths(fitmodel62, "std",   bifactor = "g",  fade = FALSE, style = "lisrel", label.cex = 3, nCharNodes = 10, what = "std", layout="tree", curvePivot = TRUE, edge.label.cex=.85)
-summary(fitmodel62, fit.measures = TRUE)
+semPlot::semPaths(fitmodel63, "std",   bifactor = "g",  fade = FALSE, style = "lisrel", label.cex = 3, nCharNodes = 10, what = "std", layout="tree", curvePivot = TRUE, edge.label.cex=.85)
+summary(fitmodel63, fit.measures = TRUE)
 
-summary(soilscaled)
-
+head(soilscaled)
