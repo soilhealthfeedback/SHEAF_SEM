@@ -230,11 +230,26 @@ head(soilscaled)
 
 #CFA with soil health latent factor
 #Soil Health with SOM AHT and Erv
-model64<-'Soil_Health =~ SOILS_SOM + SOILS_AHT + SOILS_Erv + SOILS_AW + SOILS_Db' #+SOILS_pH
+
+# SOM = Soil ogranic matter
+# AHT = A horizon thickness
+# Erv = Erosion vulnerability
+# AW = Available water in soil profile to 150 cm
+# Db = Bulk density, proxy for compaction?
+# pH = pH
+
+#This model represents our final Soil health latent variable. Horay!
+model64<-'Soil_Health =~ SOILS_SOM + SOILS_AHT + SOILS_Erv' #+ SOILS_AW + SOILS_Db + SOILS_pH
 fitmodel64<-cfa(model64, data=soilscaled)
 summary(fitmodel64,fit.measures=T)
 
-soil_health_scaled <-soilscaled[c("SOILS_SOM", "SOILS_AHT", "SOILS_Erv", "SOILS_AW",  "SOILS_Db")] #"SOILS_pH"
+#This model was run for due diligence but was not as good
+model65<-'Soil_Health =~ SOILS_SOM + SOILS_AHT + SOILS_Erv + SOILS_Db' #+ SOILS_AW + SOILS_pH
+fitmodel65<-cfa(model65, data=soilscaled)
+summary(fitmodel65,fit.measures=T)
+
+
+soil_health_scaled <-soilscaled[c("SOILS_SOM", "SOILS_AHT", "SOILS_Erv")] #"SOILS_pH" "SOILS_AW",  "SOILS_Db"
 soil_health_scaledcor <-cor(soil_health_scaled, use="complete.obs")
 soil_health_scaledcor
 
