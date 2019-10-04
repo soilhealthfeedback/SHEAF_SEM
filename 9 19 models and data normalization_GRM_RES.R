@@ -1,5 +1,8 @@
 library(e1071)
 library(forecast)
+library(psych)
+library(lavaan)
+library(semPlot)
 #fit model with scaled data
 soilscaled<-read.csv("https://files.sesync.org/index.php/s/DpG5Kr3oo35ZAZD/download", header=T)
 soilnonscaled<-read.csv("https://files.sesync.org/index.php/s/95T64P2g27E2a5a/download", header=T)
