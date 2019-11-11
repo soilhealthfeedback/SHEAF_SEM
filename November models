@@ -1,0 +1,250 @@
+####reduce skew in dependent variables####
+####cover crops
+skewness(soilnonscaled$AGCENSUS_Cover_Acres_Ratio, na.rm=T)
+summary(soilnonscaled$AGCENSUS_Cover_Acres_Ratio)
+h<-hist(soilnonscaled$AGCENSUS_Cover_Acres_Ratio)
+h
+soilnonscaled$AGCENSUS_Cover_Acres_Ratio[soilnonscaled$AGCENSUS_Cover_Acres_Ratio>=1] <- NA
+skewness(soilnonscaled$AGCENSUS_Cover_Acres_Ratio, na.rm=T)
+summary(soilnonscaled$AGCENSUS_Cover_Acres_Ratio)
+## to find optimal lambda
+lambda = BoxCox.lambda(soilnonscaled$AGCENSUS_Cover_Acres_Ratio)
+lambda
+## now to transform vector
+soilnonscaled$AGCENSUS_Cover_Acres_Ratio_transformed<-BoxCox(soilnonscaled$AGCENSUS_Cover_Acres_Ratio, lambda=-.1)
+skewness(soilnonscaled$AGCENSUS_Cover_Acres_Ratio_transformed, na.rm=T)
+summary(soilnonscaled$AGCENSUS_Cover_Acres_Ratio_transformed)
+hist(soilscaled$AGCENSUS_Cover_Acres_Ratio_transformed)
+
+###no till
+skewness(soilnonscaled$AGCENSUS_Notill_Ratio, na.rm=T)
+summary(soilnonscaled$AGCENSUS_Notill_Ratio)
+h<-hist(soilnonscaled$AGCENSUS_Notill_Ratio)
+h
+soilnonscaled$AGCENSUS_Notill_Ratio[soilnonscaled$AGCENSUS_Notill_Ratio>=.5] <- NA
+skewness(soilnonscaled$AGCENSUS_Notill_Ratio, na.rm=T)
+summary(soilnonscaled$AGCENSUS_Notill_Ratio)
+## to find optimal lambda
+lambda = BoxCox.lambda(soilnonscaled$AGCENSUS_Notill_Ratio)
+lambda
+## now to transform vector
+soilnonscaled$AGCENSUS_Notill_Ratio_transformed<-BoxCox(soilnonscaled$AGCENSUS_Notill_Ratio, lambda=-.1)
+skewness(soilnonscaled$AGCENSUS_Notill_Ratio_transformed, na.rm=T)
+summary(soilnonscaled$AGCENSUS_Notill_Ratio_transformed)
+hist(soilscaled$AGCENSUS_Notill_Ratio_transformed)
+
+###multitill
+skewness(soilnonscaled$AGCENSUS_Multitill_Ratio, na.rm=T)
+summary(soilnonscaled$AGCENSUS_Multitill_Ratio)
+h<-hist(soilnonscaled$AGCENSUS_Multitill_Ratio)
+h
+soilnonscaled$AGCENSUS_Multitill_Ratio[soilnonscaled$AGCENSUS_Multitill_Ratio>=.8] <- NA
+skewness(soilnonscaled$AGCENSUS_Multitill_Ratio, na.rm=T)
+summary(soilnonscaled$AGCENSUS_Multitill_Ratio)
+## to find optimal lambda
+lambda = BoxCox.lambda(soilnonscaled$AGCENSUS_Multitill_Ratio)
+lambda
+## now to transform vector
+soilnonscaled$AGCENSUS_Multitill_Ratio_transformed<-BoxCox(soilnonscaled$AGCENSUS_Multitill_Ratio, lambda=-.1)
+skewness(soilnonscaled$AGCENSUS_Multitill_Ratio_transformed, na.rm=T)
+summary(soilnonscaled$AGCENSUS_Multitill_Ratio_transformed)
+hist(soilnonscaled$AGCENSUS_Multitill_Ratio_transformed)
+hist(soilscaled$AGCENSUS_Multitill_Ratio_transformed)
+
+##look at distributions and remove outliers
+#chemicals
+hist(soilnonscaled$FARMCOSTS_Chemicals_1000Doll_2012_peracre)
+summary(soilnonscaled$FARMCOSTS_Chemicals_1000Doll_2012_peracre)
+soilnonscaled$FARMCOSTS_Chemicals_1000Doll_2012_peracre[soilnonscaled$FARMCOSTS_Chemicals_1000Doll_2012_peracre>=100] <- NA
+#rent
+hist(soilnonscaled$FARMCOSTS_cashrent_land_building_pasture_1000Doll_2012_peracre)
+summary(soilnonscaled$FARMCOSTS_cashrent_land_building_pasture_1000Doll_2012_peracre)
+soilnonscaled$FARMCOSTS_cashrent_land_building_pasture_1000Doll_2012_peracre[soilnonscaled$FARMCOSTS_cashrent_land_building_pasture_1000Doll_2012_peracre>=200] <- NA
+#fertilizer
+hist(soilnonscaled$FARMCOSTS_Fert_lime_soilcond_purchased_1000dolls_2012_peracre)
+summary(soilnonscaled$FARMCOSTS_Fert_lime_soilcond_purchased_1000dolls_2012_peracre)
+soilnonscaled$FARMCOSTS_Fert_lime_soilcond_purchased_1000dolls_2012_peracre[soilnonscaled$FARMCOSTS_Fert_lime_soilcond_purchased_1000dolls_2012_peracre>=200] <- NA
+#feed
+hist(soilnonscaled$FARMCOSTS_FeedExpenses_1000Dolls_2012_peracre)
+summary(soilnonscaled$FARMCOSTS_FeedExpenses_1000Dolls_2012_peracre)
+soilnonscaled$FARMCOSTS_FeedExpenses_1000Dolls_2012_peracre[soilnonscaled$FARMCOSTS_FeedExpenses_1000Dolls_2012_peracre>=600] <- NA
+#interest
+hist(soilnonscaled$FARMCOSTS_Interest_Expenses_1000Dolls_2012_peracre)
+summary(soilnonscaled$FARMCOSTS_Interest_Expenses_1000Dolls_2012_peracre)
+soilnonscaled$FARMCOSTS_Interest_Expenses_1000Dolls_2012_peracre[soilnonscaled$FARMCOSTS_Interest_Expenses_1000Dolls_2012_peracre>=100] <- NA
+#fuel
+hist(soilnonscaled$FARMCOSTS_gas_fuel_oil_purchased_1000Dolls_2012_peracre)
+summary(soilnonscaled$FARMCOSTS_gas_fuel_oil_purchased_1000Dolls_2012_peracre)
+soilnonscaled$FARMCOSTS_gas_fuel_oil_purchased_1000Dolls_2012_peracre[soilnonscaled$FARMCOSTS_gas_fuel_oil_purchased_1000Dolls_2012_peracre>=120] <- NA
+#utilities
+hist(soilnonscaled$FARMCOSTS_Utilities_expenses_1000Dolls_2012_peracre)
+summary(soilnonscaled$FARMCOSTS_Utilities_expenses_1000Dolls_2012_peracre)
+soilnonscaled$FARMCOSTS_Utilities_expenses_1000Dolls_2012_peracre[soilnonscaled$FARMCOSTS_Utilities_expenses_1000Dolls_2012_peracre>=60] <- NA
+#depreciation
+hist(soilnonscaled$FARMCOSTS_Depreciation_expenses_1000Doll_2012_peracre)
+summary(soilnonscaled$FARMCOSTS_Depreciation_expenses_1000Doll_2012_peracre)
+soilnonscaled$FARMCOSTS_Depreciation_expenses_1000Doll_2012_peracre[soilnonscaled$FARMCOSTS_Depreciation_expenses_1000Doll_2012_peracre>=200] <- NA
+#net income per acre
+soilnonscaled$FARMVALUE_farmincome_peracre<-(soilnonscaled$FARMVALUE_netincome_aveperfarm*soilnonscaled$FARMCOSTS_Total_farm_production_expense_farms_2012)/soilnonscaled$AGCENSUS_Cropland_Acres
+hist(soilnonscaled$FARMVALUE_farmincome_peracre)
+summary(soilnonscaled$FARMVALUE_farmincome_peracre)
+soilnonscaled$FARMVALUE_farmincome_peracre[soilnonscaled$FARMVALUE_farmincome_peracre>=600] <- NA
+#reserve program payments
+soilnonscaled$PAYMENTS_payments_reserve_total_peracre<-(soilnonscaled$PAYMENTS_payments_reserve_total_2012*1000)/soilnonscaled$AGCENSUS_Cropland_Acres
+hist(soilnonscaled$PAYMENTS_payments_reserve_total_peracre)
+summary(soilnonscaled$PAYMENTS_payments_reserve_total_peracre)
+soilnonscaled$PAYMENTS_payments_reserve_total_peracre[soilnonscaled$PAYMENTS_payments_reserve_total_peracre>=200] <- NA
+#federal farm program payments
+soilnonscaled$PAYMENTS_payments_fedfarmprograms_total_peracre<-(soilnonscaled$PAYMENTS_payments_fedfarmprograms_total_2012*1000)/soilnonscaled$AGCENSUS_Cropland_Acres
+hist(soilnonscaled$PAYMENTS_payments_fedfarmprograms_total_peracre)
+summary(soilnonscaled$PAYMENTS_payments_fedfarmprograms_total_peracre)
+soilnonscaled$PAYMENTS_payments_fedfarmprograms_total_peracre[soilnonscaled$PAYMENTS_payments_fedfarmprograms_total_peracre>=150] <- NA
+#race
+hist(soilnonscaled$RACE_Entropy)
+summary(soilnonscaled$RACE_Entropy)
+#farmvalue
+hist(soilnonscaled$FARMVALUE_marketvalue_aveperacre)
+summary(soilnonscaled$FARMVALUE_marketvalue_aveperacre)
+#look at farm income distribution
+hist(soilnonscaled$FARMVALUE_farmincome_peracre)
+summary(soilnonscaled$FARMVALUE_farmincome_peracre)
+soilnonscaled$FARMVALUE_farmincome_peracre[soilnonscaled$FARMVALUE_farmincome_peracre>=400] <- NA
+
+##EFA with transformed variables
+#correlation matrix
+exogcor<-soilnonscaled[c("FARMCOSTS_Chemicals_1000Doll_2012_peracre","FARMCOSTS_Fert_lime_soilcond_purchased_1000dolls_2012_peracre","FARMCOSTS_FeedExpenses_1000Dolls_2012_peracre","FARMCOSTS_ContractLaborExpense_1000Doll_2012_peracre",
+                         "FARMCOSTS_cashrent_land_building_pasture_1000Doll_2012_peracre","FARMCOSTS_Interest_Expenses_1000Dolls_2012_peracre","FARMCOSTS_Property_taxes_paid_1000Dolls_2012_peracre",
+                         "FARMCOSTS_gas_fuel_oil_purchased_1000Dolls_2012_peracre","FARMCOSTS_Utilities_expenses_1000Dolls_2012_peracre","FARMCOSTS_Depreciation_expenses_1000Doll_2012_peracre","FARMCOSTS_rent_lease_machinery_equipment_Expense_1000Dolls_2012_peracre","FARMCOSTS_Customwork_hauling_expenses_1000Doll_2012_peracre",
+                         "SOILS_SOM","SOILS_AHT","SOILS_Erv","CDI_2012","RMA_revised_mean_loss_ratio_hot_dry","RMA_revised_mean_loss_ratio_wet","FARMVALUE_farmincome_peracre",
+                         "PAYMENTS_payments_reserve_total_peracre","PAYMENTS_payments_fedfarmprograms_total_peracre","RMA_revised_mean_loss_ratio", 
+                         "PDSI_TOTALS","PRECIP_max","HDI_Income.Index","HDI_Education.Index","FEMALE_percent_female")]
+summary(exogcor)
+soilnonscaledcor<-cor(exogcor, use="pairwise.complete.obs")
+soilnonscaledcor
+out<-capture.output(soilnonscaledcor)
+cat("Correlations",out,file="correlation matrix.txt", sep="\n")
+#EFA
+efadata<-soilnonscaled[c("FARMCOSTS_Chemicals_1000Doll_2012_peracre","FARMCOSTS_Fert_lime_soilcond_purchased_1000dolls_2012_peracre","FARMCOSTS_FeedExpenses_1000Dolls_2012_peracre","FARMCOSTS_ContractLaborExpense_1000Doll_2012_peracre",
+                         "FARMCOSTS_cashrent_land_building_pasture_1000Doll_2012_peracre","FARMCOSTS_Interest_Expenses_1000Dolls_2012_peracre","FARMCOSTS_Property_taxes_paid_1000Dolls_2012_peracre",
+                         "FARMCOSTS_gas_fuel_oil_purchased_1000Dolls_2012_peracre","FARMCOSTS_Utilities_expenses_1000Dolls_2012_peracre","FARMCOSTS_Depreciation_expenses_1000Doll_2012_peracre","FARMCOSTS_rent_lease_machinery_equipment_Expense_1000Dolls_2012_peracre","FARMCOSTS_Customwork_hauling_expenses_1000Doll_2012_peracre",
+                         "SOILS_SOM","SOILS_AHT","SOILS_Erv","PAYMENTS_payments_reserve_total_peracre","PAYMENTS_payments_fedfarmprograms_total_peracre")]
+parallel <- fa.parallel(efadata, fm = 'ml', fa = 'fa')
+sixfactor <- fa(efadata,nfactors = 6,rotate = "oblimin",fm="ml")
+print(sixfactor)
+out2<-capture.output(sixfactor)
+cat("EFA",out2,file="EFA.txt",sep="\n")
+
+##CFA
+#CFA with updated factors
+
+model85<-'Input_Costs=~FARMCOSTS_Chemicals_1000Doll_2012_peracre + FARMCOSTS_Fert_lime_soilcond_purchased_1000dolls_2012_peracre + FARMCOSTS_Customwork_hauling_expenses_1000Doll_2012_peracre '
+fitmodel85<-cfa(model85,data=soilnonscaled)
+summary(fitmodel85,fit.measures=T, standardized=T)
+
+model86<-'Land_Costs=~ FARMCOSTS_Depreciation_expenses_1000Doll_2012_peracre + FARMCOSTS_Property_taxes_paid_1000Dolls_2012_peracre + FARMCOSTS_Utilities_expenses_1000Dolls_2012_peracre'
+fitmodel86<-cfa(model86,data=soilnonscaled)
+summary(fitmodel86,fit.measures=T, standardized=T) 
+
+model87<-'Rental_Costs=~ FARMCOSTS_rent_lease_machinery_equipment_Expense_1000Dolls_2012_peracre + FARMCOSTS_cashrent_land_building_pasture_1000Doll_2012_peracre + FARMCOSTS_gas_fuel_oil_purchased_1000Dolls_2012_peracre'
+fitmodel87<-cfa(model87,data=soilnonscaled)
+summary(fitmodel87,fit.measures=T, standardized=T)
+
+##Soil health factor
+#This model represents our final Soil health latent variable. Hooray!
+model64<-'Soil_Health =~ SOILS_SOM + SOILS_AHT + SOILS_Erv' #+ SOILS_AW + SOILS_Db + SOILS_pH
+fitmodel64<-cfa(model64, data=soilnonscaled)
+summary(fitmodel64,fit.measures=T, standardized=T)
+
+### model with new factors (removed PRECIP because too many missing values)
+model90<-'Input_Costs=~FARMCOSTS_Chemicals_1000Doll_2012_peracre + FARMCOSTS_Fert_lime_soilcond_purchased_1000dolls_2012_peracre + FARMCOSTS_Customwork_hauling_expenses_1000Doll_2012_peracre
+Land_Costs=~FARMCOSTS_Property_taxes_paid_1000Dolls_2012_peracre + FARMCOSTS_Utilities_expenses_1000Dolls_2012_peracre + FARMCOSTS_Depreciation_expenses_1000Doll_2012_peracre
+Rental_Costs=~ FARMCOSTS_rent_lease_machinery_equipment_Expense_1000Dolls_2012_peracre + FARMCOSTS_cashrent_land_building_pasture_1000Doll_2012_peracre + FARMCOSTS_gas_fuel_oil_purchased_1000Dolls_2012_peracre
+Soil_Health =~ SOILS_SOM + SOILS_AHT + SOILS_Erv
+
+#regressions
+CDI_2012~RMA_revised_mean_loss_ratio_hot_dry + RMA_revised_mean_loss_ratio_wet
+
+FARMVALUE_farmincome_peracre~Input_Costs + Land_Costs + Rental_Costs
+
+AGCENSUS_Cover_Acres_Ratio_transformed~CDI_2012 + PAYMENTS_payments_reserve_total_peracre + PAYMENTS_payments_fedfarmprograms_total_peracre + 
+PDSI_TOTALS + HDI_Income.Index + HDI_Education.Index + FEMALE_percent_female + Soil_Health + FARMVALUE_farmincome_peracre
+
+#covariance
+HDI_Income.Index ~~ HDI_Education.Index
+CDI_2012 ~~ Soil_Health'
+
+fitmodel90<-sem(model90,data=soilnonscaled)
+summary(fitmodel90, fit.measures=T, standardized=T)
+semPaths(fitmodel90, what="std", whatLabels="std", layout="tree", intercepts=F, residuals=F, nCharNodes=0, filetype="R", label.color="black")
+lavInspect(fitmodel90,"cov.lv")
+
+#changed paths for demographics
+model91<-'Input_Costs=~FARMCOSTS_Chemicals_1000Doll_2012_peracre + FARMCOSTS_Fert_lime_soilcond_purchased_1000dolls_2012_peracre + FARMCOSTS_Customwork_hauling_expenses_1000Doll_2012_peracre
+Land_Costs=~FARMCOSTS_Property_taxes_paid_1000Dolls_2012_peracre + FARMCOSTS_Utilities_expenses_1000Dolls_2012_peracre + FARMCOSTS_Depreciation_expenses_1000Doll_2012_peracre
+Rental_Costs=~ FARMCOSTS_rent_lease_machinery_equipment_Expense_1000Dolls_2012_peracre + FARMCOSTS_cashrent_land_building_pasture_1000Doll_2012_peracre + FARMCOSTS_gas_fuel_oil_purchased_1000Dolls_2012_peracre
+Soil_Health =~ SOILS_SOM + SOILS_AHT + SOILS_Erv
+
+#regressions
+CDI_2012~HDI_Income.Index + HDI_Education.Index + FEMALE_percent_female 
+
+FARMVALUE_farmincome_peracre~Input_Costs + Land_Costs + Rental_Costs + Soil_Health
+
+AGCENSUS_Cover_Acres_Ratio_transformed~CDI_2012 + PAYMENTS_payments_reserve_total_peracre + PAYMENTS_payments_fedfarmprograms_total_peracre + 
+PDSI_TOTALS + FEMALE_percent_female +  FARMVALUE_farmincome_peracre + RMA_revised_mean_loss_ratio_wet
+
+#covariance
+HDI_Income.Index ~~ HDI_Education.Index
+CDI_2012 ~~ Soil_Health'
+
+fitmodel91<-sem(model91,data=soilnonscaled)
+summary(fitmodel91, fit.measures=T, standardized=T)
+lavInspect(fitmodel91,"cov.lv")
+
+## look at having two cost latent factors
+model95<-'Input_Costs=~FARMCOSTS_Chemicals_1000Doll_2012_peracre + FARMCOSTS_Fert_lime_soilcond_purchased_1000dolls_2012_peracre + FARMCOSTS_rent_lease_machinery_equipment_Expense_1000Dolls_2012_peracre '
+fitmodel95<-cfa(model95,data=soilnonscaled)
+summary(fitmodel95,fit.measures=T, standardized=T)
+
+model96<-'Land_Costs=~ FARMCOSTS_gas_fuel_oil_purchased_1000Dolls_2012_peracre + FARMCOSTS_Property_taxes_paid_1000Dolls_2012_peracre + FARMCOSTS_Utilities_expenses_1000Dolls_2012_peracre'
+fitmodel96<-cfa(model96,data=soilnonscaled)
+summary(fitmodel96,fit.measures=T, standardized=T) 
+
+#changed paths for demographics
+model100<-'Input_Costs=~FARMCOSTS_Chemicals_1000Doll_2012_peracre + FARMCOSTS_Fert_lime_soilcond_purchased_1000dolls_2012_peracre + FARMCOSTS_rent_lease_machinery_equipment_Expense_1000Dolls_2012_peracre 
+Land_Costs=~ FARMCOSTS_gas_fuel_oil_purchased_1000Dolls_2012_peracre + FARMCOSTS_Property_taxes_paid_1000Dolls_2012_peracre + FARMCOSTS_Utilities_expenses_1000Dolls_2012_peracre
+Soil_Health =~ SOILS_SOM + SOILS_AHT + SOILS_Erv
+
+#regressions
+CDI_2012~HDI_Income.Index + HDI_Education.Index + FEMALE_percent_female 
+
+FARMVALUE_farmincome_peracre~Land_Costs + Soil_Health + RMA_revised_mean_loss_ratio
+
+AGCENSUS_Multitill_Ratio_transformed~PAYMENTS_payments_reserve_total_peracre + PAYMENTS_payments_fedfarmprograms_total_peracre + 
+PDSI_TOTALS + FEMALE_percent_female + FARMVALUE_farmincome_peracre + CDI_2012 + Input_Costs
+
+#covariance
+HDI_Income.Index ~~ HDI_Education.Index'
+
+fitmodel100<-sem(model100,data=soilnonscaled)
+summary(fitmodel100, fit.measures=T, standardized=T)
+semPaths(fitmodel100, what="std", whatLabels="std", layout="tree", intercepts=F, residuals=F, nCharNodes=0, filetype="R", label.color="black")
+
+summary(soilnonscaled$CDI_2012)
+soilnonscaled$CDI_2012[soilnonscaled$CDI_2012<0]<-NA
+
+hist(soilnonscaled$FARMVALUE_farmincome_peracre)
+
+#parsimonious
+model101<-'Input_Costs=~FARMCOSTS_Chemicals_1000Doll_2012_peracre + FARMCOSTS_Fert_lime_soilcond_purchased_1000dolls_2012_peracre + FARMCOSTS_rent_lease_machinery_equipment_Expense_1000Dolls_2012_peracre 
+Land_Costs=~ FARMCOSTS_gas_fuel_oil_purchased_1000Dolls_2012_peracre + FARMCOSTS_Property_taxes_paid_1000Dolls_2012_peracre + FARMCOSTS_Utilities_expenses_1000Dolls_2012_peracre
+Soil_Health =~ SOILS_SOM + SOILS_AHT + SOILS_Erv
+
+AGCENSUS_Multitill_Ratio_transformed~PAYMENTS_payments_reserve_total_peracre + PAYMENTS_payments_fedfarmprograms_total_peracre + 
+PDSI_TOTALS + FEMALE_percent_female + Input_Costs + Land_Costs + Soil_Health + RMA_revised_mean_loss_ratio'
+
+fitmodel101<-sem(model101, data=soilnonscaled)
+summary(fitmodel101, fit.measures=T, standardized=T)
+semPaths(fitmodel101, what="std", whatLabels="std", layout="tree", intercepts=F, residuals=F, nCharNodes=0, filetype="R", label.color="black")
+
+write.csv(soilnonscaled, file="C:\\Users\\kjone\\OneDrive\\Desktop\\Other things\\Soil health team\\soilnonscaledupdated.csv")
+
